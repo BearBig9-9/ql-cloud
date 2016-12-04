@@ -26,7 +26,7 @@ import javax.sql.DataSource;
  *
  */
 @Configuration
-@ConfigurationProperties(prefix = "datasource.common", locations = "classpath:mybatis/datasources.properties")
+@ConfigurationProperties(prefix = "datasource.common")
 public class DataSourceConfiguration {
 
     Logger log = LoggerFactory.getLogger(getClass());
@@ -35,7 +35,7 @@ public class DataSourceConfiguration {
 
     @Bean(name = "writeDataSource")
     @Primary
-    @ConfigurationProperties(prefix = "datasource.write", locations = "classpath:mybatis/datasources.properties")
+    @ConfigurationProperties(prefix = "datasource.write")
     public DataSource writeDataSource() {
         log.info("writeDataSource init:{}", dataSourceType);
         return DataSourceBuilder.create().type(dataSourceType).build();
@@ -47,7 +47,7 @@ public class DataSourceConfiguration {
      * @return
      */
     @Bean(name = "readDataSource1")
-    @ConfigurationProperties(prefix = "datasource.read1", locations = "classpath:mybatis/datasources.properties")
+    @ConfigurationProperties(prefix = "datasource.read1")
     public DataSource readDataSourceOne() {
         log.info("readDataSourceOne init:{}", dataSourceType);
         return DataSourceBuilder.create().type(dataSourceType).build();

@@ -1,0 +1,17 @@
+server:
+  port: 7001
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1111/eureka/
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://git.oschina.net/qilong/ql-cloud-config.git
+          searchPaths: ql-cloud-config-server,ql-cloud-*
+          username: qilongjava@163.com
+          password: qilong7622363L

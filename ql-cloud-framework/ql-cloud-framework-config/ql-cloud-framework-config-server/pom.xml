@@ -1,27 +1,30 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>ql-cloud-framework</artifactId>
+        <artifactId>ql-cloud-framework-config</artifactId>
         <groupId>com.ql.cloud</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ql-cloud-framework-config</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>ql-cloud-framework-config-server</artifactId>
+    <packaging>jar</packaging>
 
-    <name>ql-cloud-framework-config</name>
+    <name>ql-cloud-framework-config-server</name>
     <url>http://maven.apache.org</url>
-    <modules>
-        <module>ql-cloud-framework-config-dao</module>
-        <module>ql-cloud-framework-config-server</module>
-    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-eureka</artifactId>
+        </dependency>
     </dependencies>
 </project>
