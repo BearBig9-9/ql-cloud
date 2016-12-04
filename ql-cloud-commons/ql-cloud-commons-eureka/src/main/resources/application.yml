@@ -1,0 +1,12 @@
+
+#eureka.client.register-with-eureka=false
+#eureka.client.fetch-registry=false
+#eureka.client.serviceUrl.defaultZone=
+server:
+  port: 1111
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:${server.port}/eureka/

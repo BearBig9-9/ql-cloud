@@ -1,0 +1,19 @@
+
+#eureka.client.register-with-eureka=false
+#eureka.client.fetch-registry=false
+#eureka.client.serviceUrl.defaultZone=
+
+server:
+  port: 8181
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1111/eureka/
+spring:
+  application:
+    name: sso-web
+logging:
+  level: info
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+ribbon.ReadTimeout: 60000
+ribbon.ConnectTimeout: 6000

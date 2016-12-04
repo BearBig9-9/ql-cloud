@@ -1,0 +1,195 @@
+package com.ql.cloud.commons.utils.encrypt;
+
+import java.io.*;
+import java.security.MessageDigest;
+
+
+import com.sun.org.apache.xml.internal.security.utils.Base64;
+import sun.misc.BASE64Encoder;
+
+/**
+ * 
+ * 乐影密码加密通用类
+ *
+ * @author hezhifang
+ * @version 3.0 2015年11月14日 下午2:59:49
+ *
+ */
+public class Base64Utils {
+    /**
+     * 文件读取缓冲区大小
+     */
+    private static final int CACHE_SIZE = 1024;
+
+    /**
+     * 先做MD5 再做Base64
+     * 
+     * @param str
+     * @return
+     * @throws Exception
+     */
+    public static String md5AndEncode(String str) throws Exception {
+        MessageDigest md5 = MessageDigest.getInstance("MD5");
+        BASE64Encoder base64en = new BASE64Encoder();
+        String newstr = base64en.encode(md5.digest(str.getBytes("utf-8")));
+        return newstr;
+    }
+
+    /***
+     * 将app端md5值做Base64
+     * 
+     * @param str
+     * @return
+     */
+    public static String md5Str2Base64(String str) {
+        BASE64Encoder base64en = new BASE64Encoder();
+        String newstr = base64en.encode(str2pack(str));
+        return newstr;
+    }
+
+    /**
+     * <p>
+     * BASE64字符串解码为二进制数据
+     * </p>
+     * 
+     * @param base64
+     * @return
+     * @throws Exception
+     */
+    public static byte[] decode(String base64) throws Exception {
+        return Base64.decode(base64.getBytes());
+    }
+
+    /**
+     * <p>
+     * 二进制数据编码为BASE64字符串
+     * </p>
+     * 
+     * @param bytes
+     * @return
+     * @throws Exception
+     */
+    public static String encode(byte[] bytes) throws Exception {
+        return new String(Base64.encode(bytes));
+    }
+
+    /**
+     * <p>
+     * 将文件编码为BASE64字符串
+     * </p>
+     * <p>
+     * 大文件慎用，可能会导致内存溢出
+     * </p>
+     * 
+     * @param filePath 文件绝对路径
+     * @return
+     * @throws Exception
+     */
+    public static String encodeFile(String filePath) throws Exception {
+        byte[] bytes = fileToByte(filePath);
+        return encode(bytes);
+    }
+
+    /**
+     * <p>
+     * BASE64字符串转回文件
+     * </p>
+     * 
+     * @param filePath 文件绝对路径
+     * @param base64 编码字符串
+     * @throws Exception
+     */
+    public static void decodeToFile(String filePath, String base64) throws Exception {
+        byte[] bytes = decode(base64);
+        byteArrayToFile(bytes, filePath);
+    }
+
+    /**
+     * <p>
+     * 文件转换为二进制数组
+     * </p>
+     * 
+     * @param filePath 文件路径
+     * @return
+     * @throws Exception
+     */
+    public static byte[] fileToByte(String filePath) throws Exception {
+        byte[] data = new byte[0];
+        File file = new File(filePath);
+        if (file.exists()) {
+            FileInputStream in = new FileInputStream(file);
+            ByteArrayOutputStream out = new ByteArrayOutputStream(2048);
+            byte[] cache = new byte[CACHE_SIZE];
+            int nRead = 0;
+            while ((nRead = in.read(cache)) != -1) {
+                out.write(cache, 0, nRead);
+                out.flush();
+            }
+            out.close();
+            in.close();
+            data = out.toByteArray();
+        }
+        return data;
+    }
+
+    /**
+     * <p>
+     * 二进制数据写文件
+     * </p>
+     * 
+     * @param bytes 二进制数据
+     * @param filePath 文件生成目录
+     */
+    public static void byteArrayToFile(byte[] bytes, String filePath) throws Exception {
+        InputStream in = new ByteArrayInputStream(bytes);
+        File destFile = new File(filePath);
+        if (!destFile.getParentFile().exists()) {
+            destFile.getParentFile().mkdirs();
+        }
+        destFile.createNewFile();
+        OutputStream out = new FileOutputStream(destFile);
+        byte[] cache = new byte[CACHE_SIZE];
+        int nRead = 0;
+        while ((nRead = in.read(cache)) != -1) {
+            out.write(cache, 0, nRead);
+            out.flush();
+        }
+        out.close();
+        in.close();
+    }
+
+    /**
+     * 模似PHP函数pack("H*", $str);
+     * 
+     * @param str
+     * @return
+     */
+    public static byte[] str2pack(String str) {
+        int nibbleshift = 4;
+        int position = 0;
+        int len = str.length() / 2 + str.length() % 2;
+
+        byte[] output = new byte[len];
+        for (char v : str.toCharArray()) {
+            byte n = (byte) v;
+            if (n >= '0' && n <= '9') {
+                n -= '0';
+            } else if (n >= 'A' && n <= 'F') {
+                n -= ('A' - 10);
+            } else if (n >= 'a' && n <= 'f') {
+                n -= ('a' - 10);
+            } else {
+                continue;
+            }
+
+            output[position] |= (n << nibbleshift);
+
+            if (nibbleshift == 0) {
+                position++;
+            }
+            nibbleshift = (nibbleshift + 4) & 7;
+        }
+
+        return output;
+    }
+}

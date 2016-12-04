@@ -1,0 +1,26 @@
+server:
+  port: 9090
+spring:
+  application:
+    name: api-gateway
+logging:
+  level: info
+zuul:
+  routes:
+    api-sso:
+      path: /api-sso/**
+      serviceId: sso-web
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1111/eureka/
+filter:
+  logger:
+    filterType: pre
+    filterOrder: 0
+  test:
+      filterType: post
+      filterOrder: 1
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+#ribbon.ReadTimeout: 60000
+#ribbon.ConnectTimeout: 6000

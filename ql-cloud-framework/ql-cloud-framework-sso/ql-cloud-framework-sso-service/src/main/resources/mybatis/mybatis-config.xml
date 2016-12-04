@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "WEB-INF/classes/config/module/smsDB/db/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!-- mybatis全局设置 -->
+    <settings>
+        <!-- 全局映射器启用缓存 -->
+        <setting name="cacheEnabled" value="true"/>
+        <!-- 设置全局范围内启用或禁用延迟加载，当禁用时所有关联对象都会即时加载 true|false true -->
+        <setting name="lazyLoadingEnabled" value="false"/>
+        <!-- 设置在调用懒加载的对象中懒加载属性是否全部加载，为true时全部加载，为false时部分加载， true|false true -->
+        <setting name="aggressiveLazyLoading" value="true"/>
+        <!-- 允许和不允许多个结果集从单条语句中返回（取决于驱动需求）true|false true -->
+        <setting name="multipleResultSetsEnabled" value="true"/>
+        <!-- 使用列标签代替列名称，不同的驱动器有不同的作法。 true|false true-->
+        <setting name="useColumnLabel" value="true"/>
+        <!-- 允许JDBC生成主键。需要驱动器支持.如果设为了true，这个设置将强制使用被生成的主键，有一些驱动器不兼容不过仍然可以执行。true|false false -->
+        <setting name="useGeneratedKeys" value="true"/>
+        <!-- 指定MyBatis是否并且如何来自动映射数据表字段与对象的属性。
+          1.PARTIAL：自动简单映射。
+          2.NONE：没有嵌套的结果。
+          3.FULL：自动映射所有复杂的结果。  -->
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <!-- 配置和设定执行器。
+          1.SIMPLE：执行器没有什么特别之处。
+          2.REUSE：执行器可能重复使用preparedstatements语句，
+          3.BATCH：执行器可以重复执行语句和批量更新。 -->
+        <setting name="defaultExecutorType" value="REUSE"/>
+        <!-- 设置驱动等待数据库回应的超时时间 -->
+        <setting name="defaultStatementTimeout" value="25000"/>
+        <setting name="logImpl" value="LOG4J"/>      <!-- 日志实现包 -->
+    </settings>
+
+    <!-- mybatis插件 -->
+    <!--<plugins>
+        &lt;!&ndash; com.github.pagehelper为PageHelper类所在包名 &ndash;&gt;
+        <plugin interceptor="com.github.pagehelper.PageHelper">
+            &lt;!&ndash; 4.0.0以后版本可以不设置该参数 &ndash;&gt;
+            <property name="dialect" value="mysql"/>
+            &lt;!&ndash; 该参数默认为false &ndash;&gt;
+            &lt;!&ndash; 设置为true时，会将RowBounds第一个参数offset当成pageNum页码使用 &ndash;&gt;
+            &lt;!&ndash; 和startPage中的pageNum效果一样&ndash;&gt;
+            <property name="offsetAsPageNum" value="true"/>
+            &lt;!&ndash; 该参数默认为false &ndash;&gt;
+            &lt;!&ndash; 设置为true时，使用RowBounds分页会进行count查询 &ndash;&gt;
+            <property name="rowBoundsWithCount" value="true"/>
+            &lt;!&ndash; 设置为true时，如果pageSize=0或者RowBounds.limit = 0就会查询出全部的结果 &ndash;&gt;
+            &lt;!&ndash; （相当于没有执行分页查询，但是返回结果仍然是Page类型）&ndash;&gt;
+            &lt;!&ndash; 此参数不安全 注释掉&ndash;&gt;
+            &lt;!&ndash; <property name="pageSizeZero" value="true"/> &ndash;&gt;
+            &lt;!&ndash; 3.3.0版本可用 - 分页参数合理化，默认false禁用 &ndash;&gt;
+            &lt;!&ndash; 启用合理化时，如果pageNum<1会查询第一页，如果pageNum>pages会查询最后一页 &ndash;&gt;
+            &lt;!&ndash; 禁用合理化时，如果pageNum<1或pageNum>pages会返回空数据 &ndash;&gt;
+            <property name="reasonable" value="true"/>
+            &lt;!&ndash; 3.5.0版本可用 - 为了支持startPage(Object params)方法 &ndash;&gt;
+            &lt;!&ndash; 增加了一个`params`参数来配置参数映射，用于从Map或ServletRequest中取值 &ndash;&gt;
+            &lt;!&ndash; 可以配置pageNum,pageSize,count,pageSizeZero,reasonable,orderBy,不配置映射的用默认值 &ndash;&gt;
+            &lt;!&ndash; 不理解该含义的前提下，不要随便复制该配置 &ndash;&gt;
+            &lt;!&ndash; <property name="params" value="pageNum=pageHelperStart;pageSize=pageHelperRows;"/> &ndash;&gt;
+            &lt;!&ndash; 支持通过Mapper接口参数来传递分页参数 &ndash;&gt;
+            <property name="supportMethodsArguments" value="false"/>
+            &lt;!&ndash; always总是返回PageInfo类型,check检查返回类型是否为PageInfo,none返回Page &ndash;&gt;
+            <property name="returnPageInfo" value="none"/>
+        </plugin>
+    </plugins>-->
+</configuration>
