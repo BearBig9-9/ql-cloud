@@ -1,9 +1,9 @@
 server:
   port: 7001
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:1111/eureka/
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:1111/eureka/
 spring:
   application:
     name: config-server
@@ -13,5 +13,20 @@ spring:
         git:
           uri: https://git.oschina.net/qilong/ql-cloud-config.git
           searchPaths: ql-cloud-config-server,ql-cloud-*
-          username: qilongjava@163.com
-          password: qilong7622363L
+          username: 450457412@qq.com
+          password: qilong123456
+    consul:
+      host: 192.168.1.108
+      port: 8500
+      enabled: true
+      discovery:
+        enabled: true
+        instance-id: ${spring.application.name}
+        service-name: ${spring.application.name}
+        port: ${server.port}
+        health-check-path: /health
+        health-check-interval: 10s
+        tags: dev
+
+#consul安装方式:http://blog.csdn.net/mn960mn/article/details/51753893
+#consul配置方式http://blog.csdn.net/mn960mn/article/details/51775212
