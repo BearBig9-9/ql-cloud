@@ -17,7 +17,6 @@
         <module>ql-cloud-framework-sso-entity</module>
         <module>ql-cloud-framework-sso-service</module>
         <module>ql-cloud-framework-sso-iservice</module>
-        <module>ql-cloud-framework-sso-controller</module>
         <module>ql-cloud-framework-sso-web</module>
     </modules>
 
