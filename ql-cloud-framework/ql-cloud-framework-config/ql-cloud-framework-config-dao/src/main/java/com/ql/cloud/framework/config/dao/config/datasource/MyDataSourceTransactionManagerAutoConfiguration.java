@@ -38,6 +38,7 @@ public class MyDataSourceTransactionManagerAutoConfiguration extends DataSourceT
     @Bean(name = "transactionManager")
     public DataSourceTransactionManager transactionManagers() {
         log.info("-------------------- transactionManager init ---------------------");
-        return new DataSourceTransactionManager(SpringContextHolder.getBean("roundRobinDataSourceProxy"));
+        MyAbstractRoutingDataSource dataSource = SpringContextHolder.getBean("roundRobinDataSourceProxy");
+        return new DataSourceTransactionManager(dataSource);
     }
 }

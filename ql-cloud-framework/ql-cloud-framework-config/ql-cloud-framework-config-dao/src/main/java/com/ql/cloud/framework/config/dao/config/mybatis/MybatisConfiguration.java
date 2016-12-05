@@ -22,6 +22,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
@@ -38,19 +39,18 @@ import java.util.Map;
  *
  */
 @Configuration
-@AutoConfigureAfter(DataSourceConfiguration.class)
-@ConfigurationProperties(prefix = "datasource.common", locations = "classpath:mybatis/datasources.properties")
+//@AutoConfigureAfter(DataSourceConfiguration.class)
+@ConfigurationProperties(prefix = "datasource.common")
 public class MybatisConfiguration extends MybatisAutoConfiguration {
 
     private Logger log = LoggerFactory.getLogger(getClass());
-
-    private Integer readSize;
 
     @Bean(name = "sqlSessionFactory")
     public SqlSessionFactory sqlSessionFactories() throws Exception {
         log.info("sqlSessionFactory init");
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
-        bean.setDataSource(roundRobinDataSourceProxy());
+        AbstractRoutingDataSource dataSource = SpringContextHolder.getBean("roundRobinDataSourceProxy");
+        bean.setDataSource(dataSource);
 
         // 分页插件
         /*
@@ -79,28 +79,4 @@ public class MybatisConfiguration extends MybatisAutoConfiguration {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 
-    /**
-     * 有多少个数据源就要配置多少个bean
-     * 
-     * @return
-     */
-    @Bean
-    public AbstractRoutingDataSource roundRobinDataSourceProxy() {
-        MyAbstractRoutingDataSource proxy = new MyAbstractRoutingDataSource(readSize);
-        Map<Object, Object> targetDataSources = new HashMap<>();
-        DataSource writeDataSource = SpringContextHolder.getBean("writeDataSource");
-        // 写
-        targetDataSources.put(DataSourceType.write.getType(), SpringContextHolder.getBean("writeDataSource"));
-
-        for (int i = 0; i < readSize; i++) {
-            targetDataSources.put(i, SpringContextHolder.getBean("readDataSource" + (i + 1)));
-        }
-        proxy.setDefaultTargetDataSource(writeDataSource);
-        proxy.setTargetDataSources(targetDataSources);
-        return proxy;
-    }
-
-    public void setReadSize(Integer readSize) {
-        this.readSize = readSize;
-    }
 }

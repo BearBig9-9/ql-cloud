@@ -39,4 +39,8 @@ public class MyAbstractRoutingDataSource extends AbstractRoutingDataSource {
         int lookupKey = number % dataSourceNumber;
         return new Integer(lookupKey);
     }
+
+    public int getDataSourceNumber() {
+        return dataSourceNumber;
+    }
 }
