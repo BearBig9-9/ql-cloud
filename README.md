@@ -5,7 +5,8 @@
     3. 服务提供
     4. feign方式调用远程服务(鄙人比较倾向于对接口进行强约束,所以选择feign调用)
     5. zuul路由及过滤
-    6. 服务监控等
+    6. 服务监控
+    7. maven将应用打包为tar压缩包
     欢迎交流，QQ:450457412
     项目git地址为: [https://git.oschina.net/qilong/ql-cloud](https://git.oschina.net/qilong/ql-cloud)
     配置文件项目git地址为: [https://git.oschina.net/qilong/ql-cloud-config](https://git.oschina.net/qilong/ql-cloud-config)
