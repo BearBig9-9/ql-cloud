@@ -7,6 +7,7 @@
     5. zuul路由及过滤
     6. 服务监控
     7. maven将应用打包为tar压缩包
+    8. 实现服务追踪功能
     欢迎交流，QQ:450457412
     项目git地址为: [https://git.oschina.net/qilong/ql-cloud](https://git.oschina.net/qilong/ql-cloud)
     配置文件项目git地址为: [https://git.oschina.net/qilong/ql-cloud-config](https://git.oschina.net/qilong/ql-cloud-config)
@@ -27,7 +28,7 @@
             项目公共配置文件
             * ql-cloud-framework-config-dao
                 项目dao公共配置，实现mybatis读写分离，默认为一读一写
-            * ql-cloud-framework-config-dao
+            * ql-cloud-framework-config-server
                 配置文件项目，读取云端git配置文件项目
     * ql-cloud-framework-sso
         计划作为单点登录项目，目前仅作为spring cloud调用demo
