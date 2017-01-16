@@ -22,3 +22,4 @@ spring:
         tags: dev
 server:
   port: 8080
+sso.server.zipkin.enabled: true

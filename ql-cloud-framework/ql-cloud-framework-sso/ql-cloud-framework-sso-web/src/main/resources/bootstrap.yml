@@ -22,3 +22,4 @@ spring:
         tags: dev
 server:
   port: 8181
+sso.web.zipkin.enabled: true
