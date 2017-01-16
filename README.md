@@ -7,6 +7,7 @@
     5. zuul路由及过滤
     6. 服务监控
     7. maven将应用打包为tar压缩包
+    8. 实现服务追踪功能
     欢迎交流，QQ:450457412
     项目git地址为: [https://git.oschina.net/qilong/ql-cloud](https://git.oschina.net/qilong/ql-cloud)
     配置文件项目git地址为: [https://git.oschina.net/qilong/ql-cloud-config](https://git.oschina.net/qilong/ql-cloud-config)
